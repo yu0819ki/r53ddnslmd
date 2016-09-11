@@ -1,0 +1,23 @@
+{
+  "name": "r53ddnslmd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node runtime.js"
+  },
+  "keywords": [
+    "route53",
+    "lambda",
+    "dynamicdns"
+  ],
+  "author": "yu0819ki",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.6.0"
+  },
+  "devDependencies": {
+    "minimist": "^1.2.0",
+    "winston-color": "^1.0.0"
+  }
+}
