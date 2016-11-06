@@ -204,3 +204,4 @@ local.properties
 
 ### Extra
 .idea
+.env

@@ -5,7 +5,8 @@ const AWS = require('aws-sdk');
 
 class S3Operator {
   constructor(options) {
-    this.Bucket = options.Bucket;
+    this.Bucket = options.S3_BUCKET;
+    this.StorageClass = options.S3_STORAGE_CLASS;
     this.s3 = bb.promisifyAll(new AWS.S3(options), { suffix: 'Promised' });
   }
 

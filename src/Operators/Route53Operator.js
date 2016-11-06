@@ -7,7 +7,7 @@ const logger = require('../Logger.js');
 
 class Route53Operator {
   constructor(options) {
-    this.HostedZoneId = options.HostedZoneId;
+    this.HostedZoneId = options.R53_HOSTED_ZONE_ID;
     this.r53 = bb.promisifyAll(new AWS.Route53(options), { suffix: 'Promised' });
   }
 

@@ -5,12 +5,7 @@ const R53Operator = require('./Operators/Route53Operator');
 const EC2Operator = require('./Operators/EC2Operator');
 const DDNSStorage = require('./Storages/S3Storage');
 
-const conf = {
-  HostedZoneId: 'YOUR_ROUTE53_HOSTED_ZONE_ID',
-  Bucket: 'YOUR_S3_BUCKET',
-  StorageClass: 'YOUR_S3_STORAGE_CLASS*OPTIONAL*',
-};
-
+const conf = require('dotenv-safe').load();
 
 const terminatedDownHandlerPromise = (event) => {
   const r53op = new R53Operator(conf);
