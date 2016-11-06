@@ -1,10 +1,6 @@
 const _ = require('lodash');
 const bb = require('bluebird');
 const AWS = require('aws-sdk');
-
-AWS.config.update({
-  region: 'ap-northeast-1',
-});
 const logger = require('../Logger.js');
 
 class EC2Operator {

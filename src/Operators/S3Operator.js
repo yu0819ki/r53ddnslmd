@@ -1,10 +1,6 @@
 const bb = require('bluebird');
 const AWS = require('aws-sdk');
 
-AWS.config.update({
-  region: 'ap-northeast-1',
-});
-
 class S3Operator {
   constructor(options) {
     this.Bucket = options.Bucket;
