@@ -16,9 +16,9 @@ class Route53Operator {
   getHostedZone(id) {
     return this.r53.getHostedZone({
       Id: id,
-    }).then(result =>
-       result.HostedZone
-    );
+    }).then((result) => {
+      return result.HostedZone;
+    });
   }
 
   changeResourceRecordSet(action, resourceRecordSet) {
@@ -41,23 +41,23 @@ class Route53Operator {
   getResourceRecordSetsByIP(ipList) {
     return this.r53.listResourceRecordSets({
       HostedZoneId: this.HostedZoneId,
-    }).then(result =>
-      result.ResourceRecordSets.filter(ResourceRecordSet =>
-        ResourceRecordSet.Type === 'A' && !_(ResourceRecordSet.ResourceRecords).filter(ResourceRecord =>
-          !_(ipList).filter(ip =>
-            ResourceRecord.Value === ip
-          ).isEmpty()
-        ).isEmpty()
-      )
-    );
+    }).then((result) => {
+      return result.ResourceRecordSets.filter((ResourceRecordSet) => {
+        return ResourceRecordSet.Type === 'A' && !_(ResourceRecordSet.ResourceRecords).filter((ResourceRecord) => {
+          return !_(ipList).filter((ip) => {
+            return ResourceRecord.Value === ip;
+          }).isEmpty();
+        }).isEmpty();
+      });
+    });
   }
 
   deleteRecordByIP(ipList) {
-    return this.getResourceRecordSetsByIP(ipList).then(resourceRecordSets =>
-       resourceRecordSets.map(resourceRecordSet =>
-         this.changeResourceRecordSet('DELETE', resourceRecordSet)
-      )
-    );
+    return this.getResourceRecordSetsByIP(ipList).then((resourceRecordSets) => {
+      return resourceRecordSets.map((resourceRecordSet) => {
+        return this.changeResourceRecordSet('DELETE', resourceRecordSet);
+      });
+    });
   }
 
   createARecord(name, ip, ttl) {

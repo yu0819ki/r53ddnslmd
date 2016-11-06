@@ -33,8 +33,9 @@ class EC2Operator {
   }
 
   getPrivateIPByInstanceId(instanceId) {
-    return this.getInstance(instanceId).then(instance =>
-       _(instance).get('PrivateIpAddress', false)
+    return this.getInstance(instanceId).then((instance) => {
+      return _(instance).get('PrivateIpAddress', false);
+    }
     );
   }
 }

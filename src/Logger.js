@@ -4,6 +4,7 @@ const logger = (() => {
     return require('winston-color');
   } catch (err) {
     return false;
-  } })() || console;
+  }
+})() || console;
 
 module.exports = logger;

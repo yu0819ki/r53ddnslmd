@@ -39,14 +39,14 @@ class S3Operator {
     return this.s3.listObjects({
       Bucket: this.Bucket,
       Prefix: prefix,
-    }).then(result =>
-       result.Contents.map(content =>
-         ({
-           Key: content.Key,
-           ShortKey: content.Key.replace(prefix, '').replace(/^\/|\/$/g, ''),
-         })
-      )
-    );
+    }).then((result) => {
+      return result.Contents.map((content) => {
+        return ({
+          Key: content.Key,
+          ShortKey: content.Key.replace(prefix, '').replace(/^\/|\/$/g, ''),
+        });
+      });
+    });
   }
 
   remove(key) {

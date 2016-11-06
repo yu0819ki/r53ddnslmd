@@ -22,11 +22,11 @@ class S3Storage {
 
   restoreHosts(type, id) {
     const key = this.generatePathLikeKey(type, id, 'hosts');
-    return this.s3op.list(key).then(list =>
-       list.map(v =>
-         v.ShortKey
-      )
-    );
+    return this.s3op.list(key).then((list) => {
+      return list.map((v) => {
+        return v.ShortKey;
+      });
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this

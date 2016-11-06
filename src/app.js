@@ -13,11 +13,11 @@ const conf = {
 const terminatedDownHandlerPromise = (event) => {
   const r53op = new R53Operator(conf);
   const ddns = new DDNSStorage(conf);
-  return ddns.restoreInfo('EC2', event.detail['instance-id']).then(instance =>
-             r53op.deleteRecordByIP([instance.PrivateIpAddress])
-).then(promiseList =>
-         Promise.all(promiseList)
-);
+  return ddns.restoreInfo('EC2', event.detail['instance-id']).then((instance) => {
+    return r53op.deleteRecordByIP([instance.PrivateIpAddress]);
+  }).then((promiseList) => {
+    return Promise.all(promiseList);
+  });
 };
 
 const wakeupHandlerPromise = (event) => {
@@ -29,13 +29,13 @@ const wakeupHandlerPromise = (event) => {
       if (prev) { return prev; }
       return tag.Key === 'Name' ? tag.Value : prev;
     }, false) || instance.InstanceId;
-    return r53op.createARecord(hostName, instance.PrivateIpAddress).then(result =>
-             Promise.all([
-               result,
-               ddns.storeInfo('EC2', instance.InstanceId, instance),
-               ddns.storeHost('EC2', instance.InstanceId, hostName),
-             ])
-);
+    return r53op.createARecord(hostName, instance.PrivateIpAddress).then((result) => {
+      return Promise.all([
+        result,
+        ddns.storeInfo('EC2', instance.InstanceId, instance),
+        ddns.storeHost('EC2', instance.InstanceId, hostName),
+      ]);
+    });
   });
 };
 
