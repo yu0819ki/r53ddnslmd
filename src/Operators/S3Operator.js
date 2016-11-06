@@ -10,7 +10,7 @@ class S3Operator {
   }
 
   store(key, content, contentType) {
-    return this.s3.putObject({
+    return this.s3.putObjectPromised({
       Bucket: this.Bucket,
       Key: key,
       Body: content,
@@ -20,7 +20,7 @@ class S3Operator {
   }
 
   restore(key) {
-    return this.s3.getObject({
+    return this.s3.getObjectPromised({
       Bucket: this.Bucket,
       Key: key,
     }).then((data) => {
@@ -34,7 +34,7 @@ class S3Operator {
   }
 
   list(prefix) {
-    return this.s3.listObjects({
+    return this.s3.listObjectsPromised({
       Bucket: this.Bucket,
       Prefix: prefix,
     }).then((result) => {
@@ -48,7 +48,7 @@ class S3Operator {
   }
 
   remove(key) {
-    return this.s3.deleteObject({
+    return this.s3.deleteObjectPromised({
       Bucket: this.Bucket,
       Key: key,
     });

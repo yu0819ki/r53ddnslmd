@@ -1,3 +1,5 @@
+'use strict';
+
 const S3Operator = require('../Operators/S3Operator');
 
 class S3Storage {

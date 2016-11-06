@@ -12,7 +12,7 @@ class Route53Operator {
   }
 
   getHostedZone(id) {
-    return this.r53.getHostedZone({
+    return this.r53.getHostedZonePromised({
       Id: id,
     }).then((result) => {
       return result.HostedZone;
@@ -20,7 +20,7 @@ class Route53Operator {
   }
 
   changeResourceRecordSet(action, resourceRecordSet) {
-    return this.r53.changeResourceRecordSets({
+    return this.r53.changeResourceRecordSetsPromised({
       HostedZoneId: this.HostedZoneId,
       ChangeBatch: {
         Changes: [
@@ -37,7 +37,7 @@ class Route53Operator {
   }
 
   getResourceRecordSetsByIP(ipList) {
-    return this.r53.listResourceRecordSets({
+    return this.r53.listResourceRecordSetsPromised({
       HostedZoneId: this.HostedZoneId,
     }).then((result) => {
       return result.ResourceRecordSets.filter((ResourceRecordSet) => {
