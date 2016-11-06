@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = require('./Logger');
 const R53Operator = require('./Operators/Route53Operator');
 const EC2Operator = require('./Operators/EC2Operator');

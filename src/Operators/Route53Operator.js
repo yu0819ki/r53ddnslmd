@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const bb = require('bluebird');
 const AWS = require('aws-sdk');

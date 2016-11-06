@@ -1,3 +1,5 @@
+'use strict';
+
 const bb = require('bluebird');
 const AWS = require('aws-sdk');
 

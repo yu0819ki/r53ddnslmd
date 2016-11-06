@@ -1,3 +1,5 @@
+'use strict';
+
 const logger = (() => {
   try {
     // eslint-disable-next-line

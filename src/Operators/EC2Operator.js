@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const bb = require('bluebird');
 const AWS = require('aws-sdk');
@@ -31,8 +33,7 @@ class EC2Operator {
   getPrivateIPByInstanceId(instanceId) {
     return this.getInstance(instanceId).then((instance) => {
       return _(instance).get('PrivateIpAddress', false);
-    }
-    );
+    });
   }
 }
 
