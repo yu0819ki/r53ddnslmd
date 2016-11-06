@@ -11,8 +11,8 @@ const argv = require('minimist')(process.argv.slice(2), {
     s: 'state'
   }
 });
-const app = require('./app');
-const logger = (() => { try { return require('winston-color'); } catch(err) { return false; }})() || console;
+const app = require('./src/app');
+const logger = require('./src/Logger');
 
 class Context {
   done(err, message) {
