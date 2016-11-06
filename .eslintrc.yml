@@ -12,3 +12,5 @@ rules:
   arrow-body-style:
     - error
     - always
+  strict:
+    - off
