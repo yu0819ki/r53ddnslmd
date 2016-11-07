@@ -1,20 +1,26 @@
 'use strict';
+
 const AWS = require('aws-sdk');
+const app = require('./src/app');
+const logger = require('./src/Logger');
+
 AWS.config.update({
   accessKeyId: 'YOUR_ACCESS_KEY_ID',
   secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
   region: 'YOUR_REGION'
 });
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 const argv = require('minimist')(process.argv.slice(2), {
   alias: {
     i: 'instanceId',
-    s: 'state'
-  }
+    s: 'state',
+  },
 });
-const app = require('./src/app');
-const logger = require('./src/Logger');
 
 class Context {
+
+  // eslint-disable-next-line class-methods-use-this
   done(err, message) {
     if (err) {
       logger.error(err);
@@ -32,11 +38,12 @@ class Context {
     return this.done(err);
   }
 }
+
 const ctx = new Context();
 const evt = {
   detail: {
     'instance-id': argv.instanceId,
-    state: argv.state
-  }
+    state: argv.state,
+  },
 };
 app.handler(evt, ctx);
