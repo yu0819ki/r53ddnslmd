@@ -1,14 +1,15 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-const app = require('./src/app');
-const logger = require('./src/Logger');
 
 AWS.config.update({
   accessKeyId: 'YOUR_ACCESS_KEY_ID',
   secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
   region: 'YOUR_REGION'
 });
+
+const app = require('./src/app');
+const logger = require('./src/Logger');
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const argv = require('minimist')(process.argv.slice(2), {

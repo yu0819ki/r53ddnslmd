@@ -23,9 +23,9 @@ class R53ddnslmd {
   wakeupHandler(event) {
     return this.ec2op.getInstance(event.detail['instance-id']).then((instance) => {
       const hostName = instance.Tags.reduce((prev, tag) => {
-          if (prev) { return prev; }
-          return tag.Key === 'Name' ? tag.Value : prev;
-        }, false) || instance.InstanceId;
+        if (prev) { return prev; }
+        return tag.Key === 'Name' ? tag.Value : prev;
+      }, false) || instance.InstanceId;
       return this.r53op.createARecord(hostName, instance.PrivateIpAddress).then((result) => {
         return Promise.all([
           result,
@@ -33,6 +33,24 @@ class R53ddnslmd {
           this.ddns.storeHost('EC2', instance.InstanceId, hostName),
         ]);
       });
+    });
+  }
+
+  mainHandler(event, context) {
+    let promise;
+    if (event.detail.state === 'terminated') {
+      promise = this.terminatedHandler(event);
+    } else if (event.detail.state === 'running') {
+      promise = this.wakeupHandler(event);
+    } else {
+      promise = Promise.resolve(event);
+    }
+    promise.then((results) => {
+      logger.info(results);
+      context.succeed(results);
+    }).catch((err) => {
+      logger.error(err);
+      context.fail(err);
     });
   }
 }
