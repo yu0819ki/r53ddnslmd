@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node runtime.js",
     "lint": "eslint ./src"
+    "build": "./build.sh"
   },
   "keywords": [
     "route53",
