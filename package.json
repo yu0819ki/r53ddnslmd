@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node runtime.js",
-    "lint": "eslint ./src ./runtime.js",
-    "build": "./build.sh"
+    "lint": "eslint ./src ./runtime.js ./deploy.js",
+    "build": "./build.sh",
+    "deploy": "node deploy.js"
   },
   "keywords": [
     "route53",
@@ -30,6 +31,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
     "minimist": "^1.2.0",
+    "node-aws-lambda": "^0.1.8",
     "winston-color": "^1.0.0"
   }
 }
