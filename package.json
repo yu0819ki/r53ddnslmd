@@ -2,7 +2,7 @@
   "name": "r53ddnslmd",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/R53ddnslmd.js",
   "scripts": {
     "start": "node runtime.js",
     "lint": "eslint ./src ./runtime.js ./deploy.js",
