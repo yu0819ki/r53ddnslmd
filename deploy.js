@@ -21,5 +21,5 @@ const lmdConf = _(conf).reduce((prev, v, k) => {
 deploy(`./dist/${lmdConf.functionName}.zip`, lmdConf).then(() => {
   logger.info('deploy finished');
 }, (err) => {
-  logger.error(err.getMessage());
+  logger.error(err.message);
 });
