@@ -20,16 +20,19 @@ class Route53Operator {
   }
 
   changeResourceRecordSet(action, resourceRecordSet) {
+    const Changes = [
+      {
+        Action: action,
+        ResourceRecordSet: resourceRecordSet,
+      },
+    ];
     return this.r53.changeResourceRecordSetsPromised({
       HostedZoneId: this.HostedZoneId,
       ChangeBatch: {
-        Changes: [
-          {
-            Action: action,
-            ResourceRecordSet: resourceRecordSet,
-          },
-        ],
+        Changes
       },
+    }).then((result) => {
+      logger.info({Changes, result});
     }).catch((err) => {
       logger.error(err);
       return err;
@@ -71,6 +74,12 @@ class Route53Operator {
         TTL: ttl || 60,
       };
       return this.changeResourceRecordSet('CREATE', resourceRecordSet);
+    });
+  }
+
+  deleteAndCreateARecord(name, ip, ttl) {
+    return this.deleteRecordByIP([ip]).then(() => {
+      return this.createARecord(name, ip, ttl)
     });
   }
 }
