@@ -30,7 +30,7 @@ class R53ddnslmd {
   wakeupHandler(event) {
     return this.ec2op.getInstance(event.detail['instance-id']).then((instance) => {
       const hostName = this.constructor.generateHostName(instance);
-      return this.r53op.createARecord(hostName, instance.PrivateIpAddress).then((result) => {
+      return this.r53op.deleteAndCreateARecord(hostName, instance.PrivateIpAddress).then((result) => {
         return Promise.all([
           result,
           this.ddns.storeInfo('EC2', instance.InstanceId, instance),
@@ -42,7 +42,8 @@ class R53ddnslmd {
 
   mainHandler(event, context) {
     let promise;
-    if (event.detail.state === 'terminated') {
+    if (event.detail.state === 'terminated'
+      || event.detail.state === 'stopped') {
       promise = this.terminatedHandler(event);
     } else if (event.detail.state === 'running') {
       promise = this.wakeupHandler(event);
